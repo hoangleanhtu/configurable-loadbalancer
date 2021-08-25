@@ -9,7 +9,7 @@
     <version>2.5.4</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>bkit.solutions</groupId>
+  <groupId>solutions.bkit</groupId>
   <artifactId>configurable-load-balanced</artifactId>
   <version>0.0.1</version>
   <name>configurable-load-balanced</name>

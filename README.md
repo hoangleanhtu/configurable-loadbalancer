@@ -8,7 +8,7 @@ It's also run `kubectl port-forward` to forward port from remote Kubernetes.
 Including library in your Spring Boot project:
 ```
     <dependency>
-      <groupId>bkit.solutions</groupId>
+      <groupId>solutions.bkit</groupId>
       <artifactId>configurable-load-balanced</artifactId>
       <version>0.0.1</version>
     </dependency>

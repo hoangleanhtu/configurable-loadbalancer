@@ -14,7 +14,7 @@ Including library in your Spring Boot project:
     </dependency>
 ```
 
-Given following configurations in `application.properties`:
+Given following configurations in `application.yml`:
 ```
 property-source-lb:
   enabled: true

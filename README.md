@@ -11,6 +11,7 @@ Including library in your Spring Boot project:
       <groupId>solutions.bkit</groupId>
       <artifactId>configurable-load-balanced</artifactId>
       <version>0.0.1</version>
+      <optional>true</optional>
     </dependency>
 ```
 

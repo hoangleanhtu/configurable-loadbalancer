@@ -1,4 +1,4 @@
-package bkit.solutions.configurableloadbalanced;
+package solutions.bkit.configurableloadbalanced;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,11 +57,13 @@ public class PropertySourceLbConfiguration {
     return args -> {
       final Map<String, HostPortItem> servicesMap = mapToHostPort(mappedServicesConfig);
       final ExecutorService executorService = Executors.newSingleThreadExecutor();
+      log.info("==================================");
+      log.info("Will run kubect port-forward");
       servicesMap.forEach((serviceId, hostPort) -> {
         try {
           final String command = String
               .format("kubectl port-forward svc/%s %d:%d", serviceId, hostPort.getPort(), hostPort.getSvcPort());
-          log.info("Will execute port-forward [{}]", command);
+          log.info("Execute port-forward [{}]", command);
           final Process process = Runtime.getRuntime().exec(command);
           final StreamGobbler streamGobbler =
               new StreamGobbler(process.getInputStream(), System.out::println);
@@ -70,6 +72,8 @@ public class PropertySourceLbConfiguration {
           log.error("port-forward error", exception);
         }
       });
+      log.info("Finished running kubect port-forward");
+      log.info("==================================");
     };
   }
 

@@ -1,4 +1,4 @@
-package bkit.solutions.configurableloadbalanced;
+package solutions.bkit.configurableloadbalanced;
 
 public class HostPortItem {
 

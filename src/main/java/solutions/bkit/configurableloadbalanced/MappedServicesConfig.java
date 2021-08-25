@@ -1,4 +1,4 @@
-package bkit.solutions.configurableloadbalanced;
+package solutions.bkit.configurableloadbalanced;
 
 import java.util.Map;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

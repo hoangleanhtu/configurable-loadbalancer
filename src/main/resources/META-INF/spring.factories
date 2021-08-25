@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  bkit.solutions.configurableloadbalanced.PropertySourceLbConfiguration
+  solutions.bkit.configurableloadbalanced.PropertySourceLbConfiguration

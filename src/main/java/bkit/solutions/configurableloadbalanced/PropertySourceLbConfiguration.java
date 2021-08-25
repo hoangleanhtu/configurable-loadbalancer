@@ -46,7 +46,7 @@ public class PropertySourceLbConfiguration {
 
     return new MappedServiceInstanceListSuppler("local-port-forward",
         servicesMap.entrySet().stream().collect(
-            Collectors.toMap(Entry::getKey, it -> Flux.just(List.of(new DefaultServiceInstance(
+            Collectors.toMap(Entry::getKey, it -> Flux.just(Arrays.asList(new DefaultServiceInstance(
                 it.getKey(), it.getKey(), it.getValue().getHost(),
                 it.getValue().getPort(), false))))));
   }
@@ -98,7 +98,7 @@ public class PropertySourceLbConfiguration {
         .collect(Collectors.toMap(Entry::getKey, it -> {
           final String value = it.getValue();
           final String[] split = value.split(":");
-          final String host = split[0];
+          final String host = split[0].length() == 0 ? "localhost" : split[0];
           final int port = Integer.parseInt(split[1]);
           final int svcPort = split.length == 3 ? Integer.parseInt(split[2]) : 8080;
           return new HostPortItem(host, port, svcPort);

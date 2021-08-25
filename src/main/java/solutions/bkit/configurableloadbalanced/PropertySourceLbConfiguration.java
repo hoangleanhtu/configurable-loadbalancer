@@ -63,7 +63,7 @@ public class PropertySourceLbConfiguration {
         try {
           final String command = String
               .format("kubectl port-forward svc/%s %d:%d", serviceId, hostPort.getPort(), hostPort.getSvcPort());
-          log.info("Execute port-forward [{}]", command);
+          log.info("{}", command);
           final Process process = Runtime.getRuntime().exec(command);
           final StreamGobbler streamGobbler =
               new StreamGobbler(process.getInputStream(), System.out::println);

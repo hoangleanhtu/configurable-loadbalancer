@@ -10,7 +10,7 @@ Including library in your Spring Boot project:
     <dependency>
       <groupId>solutions.bkit</groupId>
       <artifactId>configurable-load-balanced</artifactId>
-      <version>0.0.1</version>
+      <version>0.0.2</version>
       <optional>true</optional>
     </dependency>
 ```

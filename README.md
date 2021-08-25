@@ -3,7 +3,7 @@ A small library to override Spring Cloud Load Balancer, creates service mapper f
 
 *Scenario*: You develop microservices and deploy all services to remote Kubernetes, and you want to run and debug one service locally, the remaining services in cloud.
 
-It's also run `kubectl port-forward` to forward port from remote Kubernetes.
+It's also run `kubectl port-forward` to forward port from remote Kubernetes, so you need permission to run port-forward.
 
 Including library in your Spring Boot project:
 ```

@@ -19,6 +19,7 @@ Given following configurations in `application.yml`:
 ```
 property-source-lb:
   enabled: true
+  auto-port-forward: true
   services:
     "say-hello": :9999:80
     "goodbye": host.docker.internal:10000:8080

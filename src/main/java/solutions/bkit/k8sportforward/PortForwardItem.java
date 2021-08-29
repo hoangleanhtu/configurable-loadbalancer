@@ -9,7 +9,7 @@ import lombok.Setter;
 public class PortForwardItem {
 
   private int port;
-  private int svcPort = 80;
+  private Integer svcPort;
   private URI uri;
 
   public void setUri(URI uri) {

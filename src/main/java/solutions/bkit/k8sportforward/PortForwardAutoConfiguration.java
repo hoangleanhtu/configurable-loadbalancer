@@ -33,20 +33,26 @@ public class PortForwardAutoConfiguration {
       final ExecutorService executorService = Executors.newSingleThreadExecutor();
       log.info("==================================");
       log.info("Will run kubectl port-forward");
-      instances.forEach((serviceId, serviceInstances) -> {
-        try {
-          PortForwardItem hostPort = serviceInstances.get(0);
-          final String command = String
-              .format("kubectl port-forward svc/%s %d:%d", serviceId, hostPort.getPort(), hostPort.getSvcPort());
-          log.info("{}", command);
-          final Process process = Runtime.getRuntime().exec(command);
-          final StreamGobbler streamGobbler =
-              new StreamGobbler(process.getInputStream(), System.out::println);
-          executorService.submit(streamGobbler);
-        } catch (IOException exception) {
-          log.error("port-forward error", exception);
-        }
-      });
+      instances
+          .entrySet()
+          .stream()
+          .filter(it -> !it.getValue().isEmpty() && it.getValue().get(0).getSvcPort() != null)
+          .forEach(it -> {
+            try {
+              final PortForwardItem hostPort = it.getValue().get(0);
+              final String serviceId = it.getKey();
+              final String command = String
+                  .format("kubectl port-forward svc/%s %d:%d", serviceId, hostPort.getPort(),
+                      hostPort.getSvcPort());
+              log.info("{}", command);
+              final Process process = Runtime.getRuntime().exec(command);
+              final StreamGobbler streamGobbler =
+                  new StreamGobbler(process.getInputStream(), System.out::println);
+              executorService.submit(streamGobbler);
+            } catch (IOException exception) {
+              log.error("port-forward error", exception);
+            }
+          });
       log.info("Finished running kubectl port-forward");
       log.info("==================================");
     };

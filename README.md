@@ -12,7 +12,7 @@ Including library in your Spring Boot project:
     <dependency>
       <groupId>solutions.bkit</groupId>
       <artifactId>k8s-port-forward-starter</artifactId>
-      <version>0.0.1</version>
+      <version>0.0.2</version>
       <optional>true</optional>
     </dependency>
 ```
@@ -32,6 +32,19 @@ spring:
           order: -1000000
 k8s-port-forward:
   enabled: true
+```
+**Troubleshoot**: If your application throws error `Reason: No setter found for property: port`, please use property `uri: http://localhost:${port}` in configurations:
+```
+spring:
+  cloud:
+    discovery:
+      client:
+        simple:
+          instances:
+            say-hello:
+              - uri: http://localhost:8090
+                svc-port: 8080
+          order: -1000000
 ```
 ## How It Works
 1. The above configuration maps service `say-hello` to `localhost:8090`

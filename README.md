@@ -1,30 +1,31 @@
-# configurable-loadbalancer
-A small library to override Spring Cloud Load Balancer, creates service mapper from configuration.
+# k8s-port-forward-starter
+A small library to run ``kubectl port-forward svc`` from configurations.
 
 *Scenario*: You develop microservices and deploy all services to remote Kubernetes, and you want to run and debug one service locally, the remaining services in cloud.
 
-It's also run `kubectl port-forward` to forward port from remote Kubernetes, so you need permission to run port-forward.
+## Prerequisite
+* `kubectl` in $PATH
+* Has Kubernetes port-forward service permission 
 
+## Getting Started
 Including library in your Spring Boot project:
 ```
     <dependency>
       <groupId>solutions.bkit</groupId>
-      <artifactId>configurable-load-balanced</artifactId>
-      <version>0.0.2</version>
+      <artifactId>k8s-port-forward-starter</artifactId>
+      <version>0.0.1</version>
       <optional>true</optional>
     </dependency>
 ```
 
 Given following configurations in `application.yml`:
 ```
-property-source-lb:
+k8s-port-forward:
   enabled: true
-  auto-port-forward: true
   services:
-    "say-hello": :9999:80
-    "goodbye": host.docker.internal:10000:8080
+    "say-hello":
+      local-port: 10000
+      svc-port: 80
 ```
 
-Then the library will:
-* Map service id `say-hello` to `localhost:9999` and run command line `kubectl port-forward svc/say-hello 9999:80`
-* Map service id `goodbye` to `host.docker.internal:10000` and run command line `kubectl port-forward svc/goodbye 10000:8080` (obviously it doesn't work in Docker)
+Then the library will run command line `kubectl port-forward svc/say-hello 10000:80`

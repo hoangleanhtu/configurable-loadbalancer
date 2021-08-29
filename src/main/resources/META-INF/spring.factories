@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  solutions.bkit.configurableloadbalanced.PropertySourceLbConfiguration
+  solutions.bkit.k8sportforward.PortForwardAutoConfiguration

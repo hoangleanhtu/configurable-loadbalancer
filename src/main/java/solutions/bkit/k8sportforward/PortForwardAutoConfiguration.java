@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,12 +20,12 @@ import org.springframework.context.annotation.Configuration;
  * @author hoangleanhtu@gmail.com
  */
 @Configuration
-@ConfigurationProperties(prefix = "k8s-port-forward")
+@ConfigurationProperties(prefix = "spring.cloud.discovery.client.simple")
 @ConditionalOnProperty(prefix = "k8s-port-forward", name = "enabled", havingValue = "true")
 @Slf4j
 public class PortForwardAutoConfiguration {
 
-  private Map<String, PortForwardItem> services;
+  private Map<String, List<PortForwardItem>> instances;
 
   @Bean
   CommandLineRunner run() {
@@ -32,10 +33,11 @@ public class PortForwardAutoConfiguration {
       final ExecutorService executorService = Executors.newSingleThreadExecutor();
       log.info("==================================");
       log.info("Will run kubectl port-forward");
-      services.forEach((serviceId, hostPort) -> {
+      instances.forEach((serviceId, serviceInstances) -> {
         try {
+          PortForwardItem hostPort = serviceInstances.get(0);
           final String command = String
-              .format("kubectl port-forward svc/%s %d:%d", serviceId, hostPort.getLocalPort(), hostPort.getSvcPort());
+              .format("kubectl port-forward svc/%s %d:%d", serviceId, hostPort.getPort(), hostPort.getSvcPort());
           log.info("{}", command);
           final Process process = Runtime.getRuntime().exec(command);
           final StreamGobbler streamGobbler =
@@ -67,13 +69,12 @@ public class PortForwardAutoConfiguration {
     }
   }
 
-  public Map<String, PortForwardItem> getServices() {
-    return services;
+  public Map<String, List<PortForwardItem>> getInstances() {
+    return instances;
   }
 
-  public void setServices(
-      Map<String, PortForwardItem> services) {
-    this.services = services;
+  public void setInstances(
+      Map<String, List<PortForwardItem>> instances) {
+    this.instances = instances;
   }
-
 }

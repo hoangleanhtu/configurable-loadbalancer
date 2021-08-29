@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class PortForwardItem {
 
-  private int localPort;
-  private int svcPort;
+  private int port;
+  private int svcPort = 80;
 }

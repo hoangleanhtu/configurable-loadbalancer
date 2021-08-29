@@ -1,5 +1,4 @@
 # k8s-port-forward-starter
-A small library to run ``kubectl port-forward svc`` from configurations.
 
 *Scenario*: You develop microservices and deploy all services to remote Kubernetes, and you want to run and debug one service locally, the remaining services in cloud.
 
@@ -20,12 +19,20 @@ Including library in your Spring Boot project:
 
 Given following configurations in `application.yml`:
 ```
+spring:
+  cloud:
+    discovery:
+      client:
+        simple:
+          instances:
+            say-hello:
+              - host: localhost
+                port: 8090
+                svc-port: 8080
+          order: -1000000
 k8s-port-forward:
   enabled: true
-  services:
-    "say-hello":
-      local-port: 10000
-      svc-port: 80
 ```
-
-Then the library will run command line `kubectl port-forward svc/say-hello 10000:80`
+## How It Works
+1. The above configuration maps service `say-hello` to `localhost:8090`
+2. With `k8s-port-forward.enabled=true`, the application will run `kubectl port-forward svc/say-hello 8090:8080`

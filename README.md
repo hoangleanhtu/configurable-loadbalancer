@@ -5,6 +5,7 @@
 ## Prerequisite
 * `kubectl` in $PATH
 * Has Kubernetes port-forward service permission 
+* Authenticated your Kubernetes cluster
 
 ## Getting Started
 Including library in your Spring Boot project:
@@ -17,7 +18,7 @@ Including library in your Spring Boot project:
     </dependency>
 ```
 
-Given following configurations in `application.yml`:
+Given following configurations in `application-local.yml` and you started application with `--spring.profiles.active=local`:
 ```
 spring:
   cloud:

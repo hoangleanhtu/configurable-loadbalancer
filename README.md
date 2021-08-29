@@ -36,3 +36,4 @@ k8s-port-forward:
 ## How It Works
 1. The above configuration maps service `say-hello` to `localhost:8090`
 2. With `k8s-port-forward.enabled=true`, the application will run `kubectl port-forward svc/say-hello 8090:8080`
+3. Verify: run `ps ax | grep 'kubectl port-forward'` to make sure all services was port-forward

@@ -13,7 +13,7 @@ Including library in your Spring Boot project:
     <dependency>
       <groupId>solutions.bkit</groupId>
       <artifactId>k8s-port-forward-starter</artifactId>
-      <version>0.0.3</version>
+      <version>0.0.4</version>
       <optional>true</optional>
     </dependency>
 ```
